@@ -5,7 +5,7 @@ import math
 
 SCREEN_WIDTH = 900
 SCREEN_HEIGHT = 450
-WINDOW_TITLE = "Computing Assignment 1"
+WINDOW_TITLE = "Code and Seek!"
 
 turtle.setup(SCREEN_WIDTH, SCREEN_HEIGHT)
 screen = turtle.Screen()
@@ -24,7 +24,7 @@ def Start_Screen():
     t.write("Player 1 will set the coordinates on where to hide",align="center", font=("Arial", 16))
     t.goto(0,-50)
     t.write("Player 2 will have 4 guesses to find the hidden turtle.",align="center", font=("Arial", 16))
-    #time.sleep(5)
+    # time.sleep(5)
 
 def calc_distance(x, y):
     x_dist = x_hide - x
@@ -54,23 +54,23 @@ def create_map():
 
     pass
 
-def main():
-    Start_Screen()
-    x_hide = int(screen.numinput("X-Location","Player 1, choose the X location on where to hide, (0,0 is in center)"))
-    y_hide = int(screen.numinput("Y-Location","Now choose the Y location on where to hide"))
-    create_map()
+Start_Screen()
+x_hide = int(screen.numinput("X-Location","Player 1, choose the X location on where to hide, (0,0 is in center)"))
+y_hide = int(screen.numinput("Y-Location","Now choose the Y location on where to hide"))
+create_map()
 
-    score = 0
-    for i in range(4):
-        x_find = int(screen.numinput("X-Location","Player 2, choose the X location for your guess"))
-        y_find = int(screen.numinput("Y-Location","Now choose the Y location for your guess"))
-        score += float(calc_score(x_find, y_find))
-        guess_info(x_find, y_find)
+total_score = 0
+total_distance = 0
 
-    print(score)
+for _ in range(4):
+    x_find = int(screen.numinput("X-Location","Player 2, choose the X location for your guess"))
+    y_find = int(screen.numinput("Y-Location","Now choose the Y location for your guess"))
+    total_score += calc_score(x_find, y_find)
+    total_distance += calc_distance(x_find, y_find)
 
-    screen.exitonclick()
+    guess_info(x_find, y_find)
 
+# print(total_score)
 
-if __name__ == "__main__":
-    main()
+screen.exitonclick()
+
