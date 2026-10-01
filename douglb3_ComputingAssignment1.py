@@ -150,7 +150,6 @@ def draw_plane():
     y = random.randint(-SCREEN_HEIGHT // 2, SCREEN_HEIGHT // 2)
     size = random.randint(30, 70)
 
-    # Main Body
     t.up()
     t.goto(x, y)
     t.down()
@@ -343,7 +342,7 @@ for _ in range(NUMBER_OF_GUESSES):
 
 # Reveals the hidden players location
 show_location()
-screen.update()
+
 time.sleep(3)
 
 # Displays the final game summary.
