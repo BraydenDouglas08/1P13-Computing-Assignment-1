@@ -50,9 +50,10 @@ def guess_info(x,y):
     t.pencolor("black")
     t.up()
     t.goto(x, y - 30)
-    t.write(f"You are {calc_distance(x,y):.2f} away!", align="center", font=("Arial", 10))
+    t.write(f"You are {calc_distance(x,y):.0f} away!", align="center", font=("Arial", 10))
     t.goto(x,y-45)
     t.write(f"You got {calc_score(x,y):.2f} points!", align="center", font=("Arial", 10))
+    screen.update()
 
 def draw_cloud():
     x = random.randint(-SCREEN_WIDTH//2,SCREEN_WIDTH//2)
@@ -77,19 +78,97 @@ def draw_cloud():
     t.end_fill()
 
 
-def draw_bird():
-    x = random.randint(-SCREEN_WIDTH // 2, SCREEN_WIDTH // 2)
-    y = random.randint(-SCREEN_HEIGHT // 2, SCREEN_HEIGHT // 2)
-    size = random.randint(20, 40)
+def draw_plane():
+    x = random.randint(-SCREEN_WIDTH//2,SCREEN_WIDTH//2)
+    y = random.randint(-SCREEN_HEIGHT//2,SCREEN_HEIGHT//2)
+    size = random.randint(30,70)
 
+    # Main Body
     t.up()
     t.goto(x,y)
+    t.down()
+    t.fillcolor("#FFFFFF")
+    t.pencolor("#FFFFFF")
+    t.begin_fill()
+    t.forward(size)
+    t.right(90)
+    t.forward(size//3)
+    t.right(90)
+    t.forward(size)
+    t.right(90)
+    t.forward(size//3)
+    t.right(90)
+    t.end_fill()
+
+    # Head
+    t.begin_fill()
+    t.goto(x-(size//1.5), y-(size//3))
+    t.goto(x, y-size//3)
+    t.goto(x,y)
+    t.end_fill()
+
+    # Back Top Wing
+    t.up()
+    t.goto(x + size, y)
+    t.down()
+    t.fillcolor("#FF3333")
+    t.pencolor("#FF3333")
+    t.begin_fill()
+    t.goto(x + size, y + size//4)
+    t.goto(x + (size - size//2), y)
+    t.goto(x + size, y)
+    t.end_fill()
+
+    # Main Wing
+    t.up()
+    t.goto(x + size//10, y - size//5)
+    t.down()
+    t.fillcolor("#E6E6E6")
+    t.pencolor("#E6E6E6")
+    t.begin_fill()
+    t.forward(size//1.2)
+    t.right(90)
+    t.forward(size//3)
+    t.goto(x + size//10, y - size//5)
+    t.end_fill()
+
+    # Windows
+    
+    t.fillcolor("#222222")
+    t.pencolor("#222222")
+    for i in range(5):
+        t.up()
+        t.goto(x + (size // 15) + ((size//10) * i), y - size//9)
+        t.down()
+        t.begin_fill()
+        t.circle(size//25)
+        t.end_fill()
+    t.left(90) # Sets heading back to default
+    
+    # Draw black border around plane
+    t.pencolor("black")
+    t.pensize(1)
+    t.up()
+    t.goto(x + size, y + size//4)
+    t.down()
+    t.goto(x + (size - size//2), y)
+    t.goto(x, y)
+    t.goto(x - (size // 1.5), y - (size // 3))
+    t.goto(x, y - (size // 3))
+    t.goto(x + size//3, y - (size // 3))
+    t.goto((x + size//10) + (size//1.2), (y - size//5) - (size//3))
+    t.goto((x + size//10) + (size//1.2), y - size//3)
+    t.goto(x + size, y - size//3)
+    t.goto(x + size, y - (size // 3))
+    t.goto(x + size, y)
+    t.goto(x + size, y + size//4)
 
 def create_map():
     t.clear()
     for _ in range (25):
         draw_cloud()
-    # draw_bird()
+    for _ in range(10):
+        draw_plane()
     turtle.bgcolor("#3F87E6")
 
 
@@ -118,7 +197,7 @@ def show_location():
     t.dot(8)
     t.pencolor("black")
     t.up()
-    t.goto(x_hide, y_hide + 10)
+    t.goto(x_hide, y_hide - 30)
     t.write(f"The hidden coordinates were ({x_hide}, {y_hide}).", align="center", font=("Arial", 14))
 
 start_screen()
@@ -148,7 +227,7 @@ for _ in range(4):
 
 
 show_location()
-
+screen.update()
 time.sleep(3)
 
 
