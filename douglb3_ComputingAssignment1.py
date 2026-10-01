@@ -150,6 +150,7 @@ def draw_plane():
     y = random.randint(-SCREEN_HEIGHT // 2, SCREEN_HEIGHT // 2)
     size = random.randint(30, 70)
 
+    # Main Body
     t.up()
     t.goto(x, y)
     t.down()
@@ -221,8 +222,7 @@ def draw_plane():
     t.goto(x - (size // 1.5), y - (size // 3))
     t.goto(x, y - (size // 3))
     t.goto(x + size // 3, y - (size // 3))
-    t.goto((x + size // 10) + (size // 1.2),
-           (y - size // 5) - (size // 3))
+    t.goto((x + size // 10) + (size // 1.2), (y - size // 5) - (size // 3))
     t.goto((x + size // 10) + (size // 1.2), y - size // 3)
     t.goto(x + size, y - size // 3)
     t.goto(x + size, y - (size // 3))
@@ -287,7 +287,7 @@ def show_location():
     t.dot(8)
     t.pencolor("black")
     t.up()
-    t.goto(x_hide, y_hide - 30)
+    t.goto(x_hide, y_hide-14)
     t.write(f"({x_hide}, {y_hide})",
             align="center", font=("Arial", 14))
 
@@ -342,11 +342,10 @@ for _ in range(NUMBER_OF_GUESSES):
 
 # Reveals the hidden players location
 show_location()
-
+screen.update()
 time.sleep(3)
 
 # Displays the final game summary.
 final_summary(total_score, total_distance, best_guess)
 
 screen.exitonclick()
-
